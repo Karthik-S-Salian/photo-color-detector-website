@@ -6,7 +6,6 @@ html,body{
 }
 
 body{
-    background-color: #5a33a1;
     background: #1A2980;
 }
 
@@ -56,8 +55,23 @@ canvas{
     flex-direction: column;
     justify-content: center;
     font-weight: bolder;
+    position: relative;
 }
 
+
+#copy-button{
+    position: absolute;
+    width:2rem;
+    height: 80%;
+    top: 50%;
+    right: 5px;
+    background-color: black;
+    transform: translateY(-50%);
+    background-image: url("./images/copy.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 footer{
     height: 300px;
@@ -71,3 +85,4 @@ footer div{
     max-width: 70%;
     margin: auto;
 }
+

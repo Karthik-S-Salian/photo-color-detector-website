@@ -1,8 +1,10 @@
 
 const radius = 8;
+let lock=false;
 
 const canvas = document.querySelector('canvas');
 const colorDisplay = document.querySelector("#color-container")
+const colorValueText= document.querySelector("#color-value")
 const dummyImage = new Image();
 dummyImage.src = "images/color_street.avif"
 const context = canvas.getContext('2d');
@@ -31,23 +33,33 @@ fileChooser.addEventListener('change', event => {
      dummyImage.src = URL.createObjectURL(files[0]);
 });
 
-canvas.addEventListener('mousemove', function (event) {
+canvas.addEventListener('mousemove', updateCanvas);
+
+
+function updateCanvas(event){
   const x = event.offsetX;
   const y = event.offsetY;
 
   const pixelData = context.getImageData(x, y, 1, 1).data;
-
+  if(lock)
+    return
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI);
   context.lineWidth = 5;
+  const cssColor=`rgb(${pixelData[0]},${pixelData[1]},${pixelData[2]})`
   context.strokeStyle = `rgb(${255-pixelData[0]},${255-pixelData[0]},${255-pixelData[0]})`;
-  colorDisplay.style.color=`rgb(${255-pixelData[0]},${255-pixelData[0]},${255-pixelData[0]})`;
+  colorValueText.style.color=`rgb(${255-pixelData[0]},${255-pixelData[0]},${255-pixelData[0]})`;
   context.stroke();
-  colorDisplay.textContent = `RGB: ${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]}`;
-  colorDisplay.style.backgroundColor = `rgb(${pixelData[0]},${pixelData[1]},${pixelData[2]})`;
-});
+  colorValueText.textContent = `RGB: ${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]}`;
+  colorDisplay.style.backgroundColor = cssColor;
+  navigator.clipboard.writeText(cssColor);
+}
 
-
+canvas.addEventListener("mousedown",function (event){
+  event.preventDefault();
+  lock=!lock;
+  updateCanvas(event);
+})
 
