@@ -35,7 +35,8 @@ header{
     position: relative;
     left:0%;
     transform: translateX(35px);
-    background-color:;
+    padding:1rem;
+    
 }
 
 

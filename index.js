@@ -8,11 +8,13 @@ const colorValueText= document.querySelector("#color-value")
 const dummyImage = new Image();
 dummyImage.src = "images/color_street.avif"
 const context = canvas.getContext('2d');
+const fileChooser = document.getElementById("file-chooser")
 
 
-//context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
+//context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
 dummyImage.onload = event => {
-  context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
+  
+  context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
 }
 
 function resizeCanvas() {
@@ -33,6 +35,7 @@ fileChooser.addEventListener('change', event => {
   const files = event.target.files;
   if (files.length !== 0)
      dummyImage.src = URL.createObjectURL(files[0]);
+     updateCanvas({"x":0,"y":0});
 });
 
 canvas.addEventListener('mousemove', updateCanvas);
@@ -46,7 +49,7 @@ function updateCanvas(event){
   if(lock)
     return
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
+  context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI);
   context.lineWidth = 5;
