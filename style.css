@@ -14,10 +14,30 @@ body{
 }
 
 header{
-    padding: 3rem 5%;
+    padding: 15vh 5%;
+    display:flex;
+    font-family:"Permanent Ink",cursive;
+    font-size: 1.2rem;
+    background-attachment: fixed;
+    text-transform: uppercase;      
+    background-repeat: no-repeat;
+    background-size: cover;
     background-image: url("./images/pencils.jpg");
     color: white;
 }
+
+#none{
+   text-align: center; 
+   font-size: larger;
+}
+
+#file-chooser{
+    position: relative;
+    left:0%;
+    transform: translateX(35px);
+    background-color:;
+}
+
 
 section{
     width:90%;

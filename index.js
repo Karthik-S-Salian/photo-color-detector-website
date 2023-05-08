@@ -9,8 +9,10 @@ const dummyImage = new Image();
 dummyImage.src = "images/color_street.avif"
 const context = canvas.getContext('2d');
 
+
+//context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
 dummyImage.onload = event => {
-  context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
+  context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
 }
 
 function resizeCanvas() {
@@ -44,7 +46,7 @@ function updateCanvas(event){
   if(lock)
     return
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
+  context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI);
   context.lineWidth = 5;
