@@ -1,10 +1,10 @@
 
-const radius = 10;
+const radius = 8;
 
 const canvas = document.querySelector('canvas');
 const colorDisplay = document.querySelector("#color-container")
 const dummyImage = new Image();
-dummyImage.src = "10581731.jpg"
+dummyImage.src = "images/10581731.jpg"
 const context = canvas.getContext('2d');
 
 dummyImage.onload = event => {
@@ -13,7 +13,7 @@ dummyImage.onload = event => {
 
 function resizeCanvas() {
   canvas.width = window.innerWidth * .9;
-  canvas.height = Math.max(300, window.innerHeight * .6);
+  canvas.height = Math.min(600, window.innerHeight * .8);
 }
 
 onresize = () => {
@@ -41,6 +41,9 @@ canvas.addEventListener('mousemove', function (event) {
   context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI);
+  context.lineWidth = 5;
+  context.strokeStyle = `rgb(${255-pixelData[0]},${255-pixelData[0]},${255-pixelData[0]})`;
+  colorDisplay.style.color=`rgb(${255-pixelData[0]},${255-pixelData[0]},${255-pixelData[0]})`;
   context.stroke();
   colorDisplay.textContent = `RGB: ${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]}`;
   colorDisplay.style.backgroundColor = `rgb(${pixelData[0]},${pixelData[1]},${pixelData[2]})`;
