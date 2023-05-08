@@ -4,7 +4,7 @@ const radius = 8;
 const canvas = document.querySelector('canvas');
 const colorDisplay = document.querySelector("#color-container")
 const dummyImage = new Image();
-dummyImage.src = "images/10581731.jpg"
+dummyImage.src = "images/color_street.avif"
 const context = canvas.getContext('2d');
 
 dummyImage.onload = event => {
@@ -12,7 +12,7 @@ dummyImage.onload = event => {
 }
 
 function resizeCanvas() {
-  canvas.width = window.innerWidth * .9;
+  canvas.width = window.innerWidth * .9-48;
   canvas.height = Math.min(600, window.innerHeight * .8);
 }
 
