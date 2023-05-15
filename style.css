@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
 html,body{
     max-width:100vw;
     min-height: 100vh;
@@ -6,7 +8,9 @@ html,body{
 }
 
 body{
+    font-family: Poppins;
     background: #1A2980;
+    letter-spacing: 120%;
 }
 
 *{
@@ -59,9 +63,10 @@ section{
     justify-content: center;
 }
 
-canvas{
+#canvas-container{
     width: 100%;
-
+    height: max(80vh,90vw*.5);
+    
 }
 
 #color-container{
@@ -91,7 +96,11 @@ canvas{
     background-image: url("./images/copy.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
+}
+
+#copy-button:active{
+    background-color: rgb(0, 132, 255);
 }
 
 footer{
@@ -105,5 +114,7 @@ footer{
 footer div{
     max-width: 70%;
     margin: auto;
+    line-height: 150%;
+    letter-spacing: 120%;
 }
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,42 +8,42 @@
         <title>Color Detector</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
 
+    <body>
         <header>
             <h1>Color Detector</h1>
         </header>
+
         <div id="root">
             <section>
                 <div id="none">
-                    <label for="fileChooser">Choose an image to display</label>
+                    <label for="file-chooser">Choose an image to display</label>
                     <br>
-                    <input type="file" name="fileChooser" 
-                    id="file-chooser" accept="image/jpeg">
-                    
+                    <input type="file" id="file-chooser" accept="image/jpeg">
+
                 </div>
-                
+
             </section>
-        
+
             <section>
-
-                
-
                 <div id="color-container">
                     <span id="color-value"></span>
                     <button id="copy-button"></button>
                 </div>
-                <canvas> </canvas>
+                <div id="canvas-container">
+                    <canvas></canvas>
+                </div>
             </section>
-
         </div>
 
         <footer>
             <h2>About Us</h2>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus consectetur, ratione sit nisi blanditiis asperiores? Quae distinctio sapiente vel aperiam deserunt? Doloremque placeat numquam, cumque provident ipsum dolore odio aliquid!</div>
-
+            <p>Developed by KARTHIK SHASHIDHAR SALIAN <br />
+                View code on https://github.com/Karthik-S-Salian/photo-color-detector-website
+            </p>
         </footer>
-        
+
         <script src="index.js"> </script>
     </body>
+
 </html>
