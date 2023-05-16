@@ -1,6 +1,7 @@
 // Define the radius of the circle and the lock status
-const radius = 8;
-let lock = false;
+const radius = window.innerHeight*1/100;
+const thickness=Math.floor(radius/3);
+let lock = true;
 
 // Define the initial color values
 let color = {
@@ -8,6 +9,7 @@ let color = {
     green: 0,
     blue: 0
 }
+
 
 // Get the canvas element and other required DOM elements
 const canvas = document.querySelector('canvas');
@@ -22,14 +24,14 @@ const canvasContainer = document.querySelector("#canvas-container")
 // Load the dummy image onto the canvas
 //context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
 dummyImage.onload = event => {
-    updateCanvas({ offsetX: canvas.width / 2, offsetY: canvas.height / 2 })
+    updateCanvas({ offsetX: canvas.width / 2, offsetY: canvas.height / 2 },forceUpdate=true)
 }
 
 // Resize the canvas to fit the window
 function resizeCanvas() {
     canvas.width = canvasContainer.offsetWidth;
     canvas.height = canvasContainer.offsetHeight;
-    updateCanvas({ offsetX: canvas.width / 2, offsetY: canvas.height / 2 });
+    updateCanvas({ offsetX: canvas.width / 2, offsetY: canvas.height / 2 },forceUpdate=true);
 }
 
 // Resize the canvas when the window is resized
@@ -50,20 +52,21 @@ fileChooser.addEventListener('change', event => {
     const files = event.target.files;
     if (files.length !== 0)
         dummyImage.src = URL.createObjectURL(files[0]);
-    updateCanvas({ "x": 0, "y": 0 });
+    updateCanvas({ "x": 0, "y": 0 },forceUpdate=true);
 });
 
 // Event listener for mouse movement on the canvas
 canvas.addEventListener('mousemove', updateCanvas);
 
 // Update the canvas based on the mouse position
-function updateCanvas(event) {
-    const x = event.offsetX;
-    const y = event.offsetY;
+function updateCanvas(event,forceUpdate=false) {
 
     //if detection is locked don't simply redraw
-    if (lock)
+    if ((!forceUpdate)&&lock)
         return
+
+    const x = event.offsetX;
+    const y = event.offsetY;
 
     // Clear the canvas and draw the dummy image
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -79,7 +82,7 @@ function updateCanvas(event) {
     // Draw a circle around the current position
     context.beginPath();
     context.arc(x, y, radius, 0, 2 * Math.PI);
-    context.lineWidth = 5;
+    context.lineWidth = thickness;
     context.strokeStyle = `rgb(${unitColor},${unitColor},${unitColor})`;
     context.stroke();
 
@@ -93,6 +96,12 @@ function updateCanvas(event) {
 // Event listener for mouse down on the canvas
 canvas.addEventListener("mousedown", function (event) {
     event.preventDefault();
-    lock = !lock;
+    lock = false;
     updateCanvas(event);
+})
+
+canvas.addEventListener("mouseup", function (event) {
+    event.preventDefault();
+    lock = true;
+    
 })
