@@ -144,6 +144,11 @@ footer div {
     display: inline-block;
     position: relative;
 
+    &:visited{
+        text-decoration: inherit;
+        color: inherit;
+    }
+
 
     &:before{
         content: " ";
@@ -179,3 +184,5 @@ footer div {
     font-size: 1.5rem;
     translate: -50% -50%;
 }
+
+
