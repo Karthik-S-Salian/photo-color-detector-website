@@ -1,6 +1,7 @@
 // Define the radius of the circle and the lock status
 const radius = window.innerHeight*1/100;
 const thickness=Math.floor(radius/3);
+let fitImage=false;
 let lock = true;
 
 // Define the initial color values
@@ -18,12 +19,25 @@ const colorValueText = document.querySelector("#color-value")
 const dummyImage = new Image();
 dummyImage.src = "images/color_street.avif"
 const context = canvas.getContext('2d');
-const fileChooser = document.getElementById("file-chooser")
-const canvasContainer = document.querySelector("#canvas-container")
+const fileChooser = document.getElementById("file-chooser");
+const canvasContainer = document.querySelector("#canvas-container");
+const fitButton = document.querySelector("#fit-button");
+
+fitButton.addEventListener("click",(event)=>{
+    fitImage=!fitImage;
+    if(fitImage)
+        fitButton.style.backgroundImage=`url("./images/exo_ic_fullscreen_exit.png")`;
+    else
+        fitButton.style.backgroundImage=`url("./images/exo_ic_fullscreen_enter.png")`;
+
+    updateCanvas({ offsetX: canvas.width / 2, offsetY: canvas.height / 2 },forceUpdate=true);
+});
+
 
 // Load the dummy image onto the canvas
-//context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
 dummyImage.onload = event => {
+    //canvasContainer.style.height=`${dummyImage.height*canvasContainer.offsetWidth/dummyImage.width}px`;
+    //resizeCanvas();
     updateCanvas({ offsetX: canvas.width / 2, offsetY: canvas.height / 2 },forceUpdate=true)
 }
 
@@ -52,7 +66,7 @@ fileChooser.addEventListener('change', event => {
     const files = event.target.files;
     if (files.length !== 0)
         dummyImage.src = URL.createObjectURL(files[0]);
-    updateCanvas({ "x": 0, "y": 0 },forceUpdate=true);
+    updateCanvas({ offsetX: canvas.width / 2, offsetY: canvas.height / 2 },forceUpdate=true);
 });
 
 // Event listener for mouse movement on the canvas
@@ -70,7 +84,13 @@ function updateCanvas(event,forceUpdate=false) {
 
     // Clear the canvas and draw the dummy image
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
+    if(fitImage)
+        context.drawImage(dummyImage, 0, 0, dummyImage.width, dummyImage.height, 0, 0, canvas.width, canvas.height);
+    else{
+        const height=dummyImage.height*canvas.width/dummyImage.width
+        context.drawImage(dummyImage, 0, canvas.height/2-height/2, canvas.width, height);
+        //context.drawImage(dummyImage, canvas.width/2-dummyImage.width/2, canvas.height/2-dummyImage.height/2, dummyImage.width, dummyImage.height);
+    }
 
     // Get the color data of the pixel at the current position
     const pixelData = context.getImageData(x, y, 1, 1).data;
